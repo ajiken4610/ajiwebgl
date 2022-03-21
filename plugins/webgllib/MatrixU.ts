@@ -1,4 +1,7 @@
 export class MatrixU {
+  private static temp: Matrix = [
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  ];
   static invertM(r: Matrix, s: Matrix) {
     const t11 = s[0];
     const t21 = s[1];
@@ -297,5 +300,78 @@ export class MatrixU {
     r[13] = 0;
     r[14] = (-2 * far * near) / (far - near);
     r[15] = 0;
+  }
+  static setTranslateM(r: Matrix, dx: number, dy: number, dz: number) {
+    r[0] = 1;
+    r[1] = 0;
+    r[2] = 0;
+    r[3] = 0;
+    r[4] = 0;
+    r[5] = 1;
+    r[6] = 0;
+    r[7] = 0;
+    r[8] = 0;
+    r[9] = 0;
+    r[10] = 1;
+    r[11] = 0;
+    r[12] = dx;
+    r[13] = dy;
+    r[14] = dz;
+    r[15] = 1;
+  }
+  static translateM(r: Matrix, s: Matrix, dx: number, dy: number, dz: number) {
+    this.setTranslateM(this.temp, dx, dy, dz);
+    this.multiplyMM(r, this.temp, s);
+  }
+  static setRotateM(r: Matrix, a: number, x: number, y: number, z: number) {
+    // TODO: implementation
+  }
+  static rotateM(
+    r: Matrix,
+    s: Matrix,
+    a: number,
+    x: number,
+    y: number,
+    z: number
+  ) {
+    // TODO: implementation
+  }
+  static setRotateEulerM(r: Matrix, x: number, y: number, z: number) {}
+  static rotateEulerM(r: Matrix, s: Matrix, x: number, y: number, z: number) {}
+  static setScaleM(r: Matrix, sx: number, sy: number, sz: number) {
+    r[0] = sx;
+    r[1] = 0;
+    r[2] = 0;
+    r[3] = 0;
+    r[4] = 0;
+    r[5] = sy;
+    r[6] = 0;
+    r[7] = 0;
+    r[8] = 0;
+    r[9] = 0;
+    r[10] = sz;
+    r[11] = 0;
+    r[12] = 0;
+    r[13] = 0;
+    r[14] = 0;
+    r[15] = 1;
+  }
+  static scaleM(r: Matrix, s: Matrix, sx: number, sy: number, sz: number) {
+    this.setTranslateM(this.temp, sx, sy, sz);
+    this.multiplyMM(r, this.temp, s);
+  }
+  static setLookAtM(
+    r: Matrix,
+    eyeX: number,
+    eyeY: number,
+    eyeZ: number,
+    centerX: number,
+    centerY: number,
+    centerZ: number,
+    upX: number,
+    upY: number,
+    upZ: number
+  ) {
+    // TODO: implementation
   }
 }

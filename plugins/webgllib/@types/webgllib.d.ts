@@ -107,22 +107,22 @@ declare class MatrixU {
   /**
    * 平行移動行列を計算して返します。
    * @param r 結果を格納する行列
-   * @param x X方向に移動する量
-   * @param y Y方向に移動する量
-   * @param z Z方向に移動する量
+   * @param dx X方向に移動する量
+   * @param dy Y方向に移動する量
+   * @param dz Z方向に移動する量
    */
-  static setTranslateM(r: Matrix, x: float, y: float, z: float);
+  static setTranslateM(r: Matrix, dx: float, dy: float, dz: float);
   /**
    * 行列に平行移動行列を乗算して返します。
    * @param r 結果を格納する行列
    * @param s 元となる行列
-   * @param x X方向に移動する量
-   * @param y Y方向に移動する量
-   * @param z Z方向に移動する量
+   * @param dx X方向に移動する量
+   * @param dy Y方向に移動する量
+   * @param dz Z方向に移動する量
    */
-  static translateM(r: Matrix, s: Matrix, x: float, y: float, z: float);
+  static translateM(r: Matrix, s: Matrix, dx: float, dy: float, dz: float);
   /**
-   * 回転行列を計算して返します。
+   * 回転行列を計算して返します。ベクトルは正規化されている必要があります。
    * @param r 結果を格納する行列
    * @param a 回転量
    * @param x 回転軸の方向ベクトルのX成分
@@ -131,7 +131,7 @@ declare class MatrixU {
    */
   static setRotateM(r: Matrix, a: float, x: float, y: float, z: float);
   /**
-   * 行列に回転行列を乗算して返します。
+   * 行列に回転行列を乗算して返します。ベクトルは正規化されている必要があります。
    * @param r 結果を格納する行列
    * @param s 元となる行列
    * @param a 回転量
@@ -164,7 +164,7 @@ declare class MatrixU {
    * @param y Y軸方向の拡大率
    * @param z Z軸方向の拡大率
    */
-  static setScaleM(r: Matrix, x: float, y: float, z: float);
+  static setScaleM(r: Matrix, sx: float, sy: float, sz: float);
   /**
    * 行列にスケール行列を乗算して返します。
    * @param r 結果を格納する行列
@@ -173,7 +173,7 @@ declare class MatrixU {
    * @param y Y軸方向の拡大率
    * @param z Z軸方向の拡大率
    */
-  static scaleM(r: Matrix, s: Matrix, x: float, y: float, z);
+  static scaleM(r: Matrix, s: Matrix, sx: float, sy: float, sz: float);
 
   /**
    * ビュー変換行列を計算して返します。
