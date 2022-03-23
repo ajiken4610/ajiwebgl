@@ -201,3 +201,12 @@ declare class MatrixU {
     upZ: float
   );
 }
+
+declare class VecU {
+  /**
+   * Vec4の長さを計算します。
+   * @param vec 長さを計算するベクトル
+   */
+  static length4(vec: Vec4);
+  static normalizeU();
+}
