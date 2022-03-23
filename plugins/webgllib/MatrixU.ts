@@ -324,7 +324,25 @@ export class MatrixU {
     this.multiplyMM(r, this.temp, s);
   }
   static setRotateM(r: Matrix, a: number, x: number, y: number, z: number) {
-    // TODO: implementation
+    const sin = Math.sin((a * Math.PI) / 180);
+    const cos = Math.cos((a * Math.PI) / 180);
+    const icos = 1 - cos;
+    r[0] = x * x * icos + cos;
+    r[1] = x * y * icos + z * sin;
+    r[2] = z * x * icos - y * sin;
+    r[3] = 0;
+    r[4] = x * y * icos - z * sin;
+    r[5] = y * y * icos + cos;
+    r[6] = y * z * icos + x * sin;
+    r[7] = y * z * icos + x * sin;
+    r[8] = 0;
+    r[9] = z * x * icos + y * sin;
+    r[10] = y * z * icos - x * sin;
+    r[11] = z * z * icos + cos;
+    r[12] = 0;
+    r[13] = 0;
+    r[14] = 0;
+    r[15] = 1;
   }
   static rotateM(
     r: Matrix,

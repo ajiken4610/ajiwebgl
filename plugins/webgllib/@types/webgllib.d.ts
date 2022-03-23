@@ -205,8 +205,13 @@ declare class MatrixU {
 declare class VecU {
   /**
    * Vec4の長さを計算します。
-   * @param vec 長さを計算するベクトル
+   * @param s 長さを計算するベクトル
    */
-  static length4(vec: Vec4);
-  static normalizeU();
+  static length4(s: Vec4): float;
+  /**
+   * Vec4を正規化して返します。
+   * @param r 正規化するベクトル
+   * @param s 正規化されたベクトルのポインタ
+   */
+  static normalize4(r: Vec4, s: Vec4);
 }
