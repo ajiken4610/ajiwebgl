@@ -1,5 +1,8 @@
 export class MatrixU {
-  private static temp: Matrix = [
+  public static temp0: Matrix = [
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  ];
+  public static temp1: Matrix = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ];
   static invertM(r: Matrix, s: Matrix) {
@@ -320,11 +323,29 @@ export class MatrixU {
     r[15] = 1;
   }
   static translateM(r: Matrix, s: Matrix, dx: number, dy: number, dz: number) {
-    this.setTranslateM(this.temp, dx, dy, dz);
-    this.multiplyMM(r, this.temp, s);
+    this.setTranslateM(this.temp0, dx, dy, dz);
+    this.multiplyMM(r, this.temp0, s);
   }
   static setRotateM(r: Matrix, a: number, x: number, y: number, z: number) {
-    // TODO: implementation
+    const sin = Math.sin((a * Math.PI) / 180);
+    const cos = Math.cos((a * Math.PI) / 180);
+    const icos = 1 - cos;
+    r[0] = x * x * icos + cos;
+    r[1] = x * y * icos + z * sin;
+    r[2] = z * x * icos - y * sin;
+    r[3] = 0;
+    r[4] = x * y * icos - z * sin;
+    r[5] = y * y * icos + cos;
+    r[6] = y * z * icos + x * sin;
+    r[7] = y * z * icos + x * sin;
+    r[8] = 0;
+    r[9] = z * x * icos + y * sin;
+    r[10] = y * z * icos - x * sin;
+    r[11] = z * z * icos + cos;
+    r[12] = 0;
+    r[13] = 0;
+    r[14] = 0;
+    r[15] = 1;
   }
   static rotateM(
     r: Matrix,
@@ -334,7 +355,8 @@ export class MatrixU {
     y: number,
     z: number
   ) {
-    // TODO: implementation
+    this.setRotateM(this.temp0, a, x, y, z);
+    this.multiplyMM(r, this.temp0, s);
   }
   static setRotateEulerM(r: Matrix, x: number, y: number, z: number) {}
   static rotateEulerM(r: Matrix, s: Matrix, x: number, y: number, z: number) {}
@@ -357,8 +379,8 @@ export class MatrixU {
     r[15] = 1;
   }
   static scaleM(r: Matrix, s: Matrix, sx: number, sy: number, sz: number) {
-    this.setTranslateM(this.temp, sx, sy, sz);
-    this.multiplyMM(r, this.temp, s);
+    this.setTranslateM(this.temp0, sx, sy, sz);
+    this.multiplyMM(r, this.temp0, s);
   }
   static setLookAtM(
     r: Matrix,

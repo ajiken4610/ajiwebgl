@@ -12,4 +12,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   let c: Matrix = [1, 1, 1, -1, 1, 1, -1, 1, 1, -1, 1, 1, -1, 1, 1, 1];
   MatrixU.invertM(r, a);
   console.log(r);
+  let d: Matrix = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 5, 1];
+  MatrixU.invertM(r, d);
+  console.log(r);
 });
