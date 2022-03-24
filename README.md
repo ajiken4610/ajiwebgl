@@ -1,2 +1,3 @@
 # ajiwebgl
-AjiがWebGLのライブライを書きます。
+
+Aji が WebGL のライブラリを書きます。
