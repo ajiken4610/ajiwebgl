@@ -39,6 +39,22 @@ declare type Vec4 = [float, float, float, float];
  */
 declare class MatrixU {
   /**
+   * 行列計算のテンプポインタとして利用してください。
+   *
+   * @static
+   * @type {Matrix}
+   * @memberof MatrixU
+   */
+  public static temp0: Matrix;
+  /**
+   * 行列計算のテンプポインタとして利用してください。
+   *
+   * @static
+   * @type {Matrix}
+   * @memberof MatrixU
+   */
+  public static temp1: Matrix;
+  /**
    * 逆行列を返します。
    * @param r 結果を格納する行列
    * @param s ソースとなる行列
@@ -206,6 +222,7 @@ declare class VecU {
   /**
    * Vec4の長さを計算します。
    * @param s 長さを計算するベクトル
+   * @return ベクトルの計算された長さ
    */
   static length4(s: Vec4): float;
   /**
@@ -214,4 +231,10 @@ declare class VecU {
    * @param s 正規化されたベクトルのポインタ
    */
   static normalize4(r: Vec4, s: Vec4);
+  /**
+   * Vec3の長さを計算します。
+   * @param s 長さを計算するベクトル
+   * @return ベクトルの計算された長さ
+   */
+  static length3(s: Vec3): float;
 }
