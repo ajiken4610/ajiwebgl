@@ -1,5 +1,6 @@
 /**
  * Matrixは、4x4の行列を表します。
+ * オフセットは定められていませんが、最低で16個の要素が必要です。
  */
 declare type Matrix = [
   float,
@@ -17,7 +18,8 @@ declare type Matrix = [
   float,
   float,
   float,
-  float
+  float,
+  ...float[]
 ];
 
 /**
@@ -57,38 +59,55 @@ declare class MatrixU {
   /**
    * 逆行列を返します。
    * @param r 結果を格納する行列
+   * @param ro 結果を格納する行列のオフセット
    * @param s ソースとなる行列
+   * @param so ソースとなる行列のオフセット
    */
-  static invertM(r: Matrix, s: Matrix);
+  static invertM(r: Matrix, ro: number, s: Matrix, so: number);
   /**
    * 行列s1*s2を計算して返します。
    * @param r 結果を格納する行列
+   * @param ro 結果を格納する行列のオフセット
    * @param s1 乗算の左辺となるソースの行列
+   * @param s1o 乗算の左辺となるソースの行列のオフセット
    * @param s2 乗算の右辺となるソースの行列
+   * @param s2o 乗算の右辺となるソースの行列のオフセット
    */
-  static multiplyMM(r: Matrix, s1: Matrix, s2: Matrix);
+  static multiplyMM(
+    r: Matrix,
+    ro: number,
+    s1: Matrix,
+    s1o: number,
+    s2: Matrix,
+    s2o: number
+  );
   /**
    * 行列とベクトルを乗算して返します。
    * @param r 結果を格納する行列
    * @param s1 乗算の左辺の行列
+   * @param s1o 乗算の左辺の行列のオフセット
    * @param s2 乗算の右辺のベクトル
    */
-  static multiplyMV(r: Vec4, s1: Matrix, s2: Vec4);
+  static multiplyMV(r: Vec4, s1: Matrix, s1o: number, s2: Vec4);
   /**
    * 行列の転置ベクトルを計算して返します。
    * @param r 結果を格納する行列
+   * @param so 結果を格納する行列のオフセット
    * @param s 転置される行列
+   * @param so 転置される行列のオフセット
    */
-  static transposeM(r: Matrix, s: Matrix);
+  static transposeM(r: Matrix, ro: number, s: Matrix, so: number);
   /**
    * 単位行列を返します。
    * @param r 結果を格納する行列
+   * @param ro 結果を格納する行列のオフセット
    */
-  static setIdentityM(r: Matrix);
+  static setIdentityM(r: Matrix, ro: number);
 
   /**
    * 平行投影行列を生成して返します。
    * @param r 結果を格納する行列
+   * @param ro 結果を格納する行列のオフセット
    * @param left 左クリップ面
    * @param right 右クリップ面
    * @param bottom 下クリップ面
@@ -98,6 +117,7 @@ declare class MatrixU {
    */
   static setOrthoM(
     r: Matrix,
+    ro: number,
     left: float,
     right: float,
     bottom: float,
@@ -108,6 +128,7 @@ declare class MatrixU {
   /**
    * 透視投影行列を生成して返します
    * @param r 結果を格納する行列
+   * @param ro 結果を格納する行列のオフセット
    * @param fovy 縦方向の視野角
    * @param aspect 画面の比率w/h
    * @param near ニアクリップ面
@@ -115,6 +136,7 @@ declare class MatrixU {
    */
   static setPerspectiveM(
     r: Matrix,
+    ro: number,
     fovy: float,
     aspect: float,
     near: float,
@@ -123,77 +145,130 @@ declare class MatrixU {
   /**
    * 平行移動行列を計算して返します。
    * @param r 結果を格納する行列
+   * @param ro 結果を格納する行列のオフセット
    * @param dx X方向に移動する量
    * @param dy Y方向に移動する量
    * @param dz Z方向に移動する量
    */
-  static setTranslateM(r: Matrix, dx: float, dy: float, dz: float);
+  static setTranslateM(r: Matrix, ro: number, dx: float, dy: float, dz: float);
   /**
    * 行列に平行移動行列を乗算して返します。
    * @param r 結果を格納する行列
+   * @param ro 結果を格納する行列のオフセット
    * @param s 元となる行列
+   * @param so 元となる行列のオフセット
    * @param dx X方向に移動する量
    * @param dy Y方向に移動する量
    * @param dz Z方向に移動する量
    */
-  static translateM(r: Matrix, s: Matrix, dx: float, dy: float, dz: float);
+  static translateM(
+    r: Matrix,
+    ro: number,
+    s: Matrix,
+    so: number,
+    dx: float,
+    dy: float,
+    dz: float
+  );
   /**
    * 回転行列を計算して返します。ベクトルは正規化されている必要があります。
    * @param r 結果を格納する行列
+   * @param ro 結果を格納する行列のオフセット
    * @param a 回転量
    * @param x 回転軸の方向ベクトルのX成分
    * @param y 回転軸の方向ベクトルのY成分
    * @param z 回転軸の方向ベクトルのZ成分
    */
-  static setRotateM(r: Matrix, a: float, x: float, y: float, z: float);
+  static setRotateM(
+    r: Matrix,
+    ro: number,
+    a: float,
+    x: float,
+    y: float,
+    z: float
+  );
   /**
    * 行列に回転行列を乗算して返します。ベクトルは正規化されている必要があります。
    * @param r 結果を格納する行列
+   * @param ro 結果を格納する行列のオフセット
    * @param s 元となる行列
+   * @param so 元となる行列のオフセット
    * @param a 回転量
    * @param x 回転軸の方向ベクトルのX成分
    * @param y 回転軸の方向ベクトルのY成分
    * @param z 回転軸の方向ベクトルのZ成分
    */
-  static rotateM(r: Matrix, s: Matrix, a: float, x: float, y: float, z: float);
+  static rotateM(
+    r: Matrix,
+    ro: number,
+    s: Matrix,
+    so: number,
+    a: float,
+    x: float,
+    y: float,
+    z: float
+  );
   /**
    * 回転行列を軸ごとの回転量から計算して返します。
    * @param r 結果を格納する行列
+   * @param ro 結果を格納する行列のオフセット
    * @param x X軸に対する回転量
    * @param y Y軸に対する回転量
    * @param z Z軸に対する回転量
    */
-  static setRotateEulerM(r: Matrix, x: float, y: float, z: float);
+  static setRotateEulerM(r: Matrix, ro: number, x: float, y: float, z: float);
   /**
    * 行列に回転行列を軸ごとの回転量から計算して乗算して返します。
    * @param r 結果を格納する行列
+   * @param ro 結果を格納する行列のオフセット
    * @param s 元となる行列
+   * @param so 元となる行列のオフセット
    * @param x X軸に対する回転量
    * @param y Y軸に対する回転量
    * @param z Z軸に対する回転量
    */
-  static rotateEulerM(r: Matrix, s: Matrix, x: float, y: float, z: float);
+  static rotateEulerM(
+    r: Matrix,
+    ro: number,
+    s: Matrix,
+    so: number,
+    x: float,
+    y: float,
+    z: float
+  );
   /**
    * スケール行列を計算して返します。
    * @param r 結果を格納する行列
+   * @param ro 結果を格納する行列のオフセット
    * @param x X軸方向の拡大率
    * @param y Y軸方向の拡大率
    * @param z Z軸方向の拡大率
    */
-  static setScaleM(r: Matrix, sx: float, sy: float, sz: float);
+  static setScaleM(r: Matrix, ro: number, sx: float, sy: float, sz: float);
   /**
    * 行列にスケール行列を乗算して返します。
    * @param r 結果を格納する行列
+   * @param ro 結果を格納する行列のオフセット
    * @param s 元となる行列
+   * @param so 元となる行列のオフセット
    * @param x X軸方向の拡大率
    * @param y Y軸方向の拡大率
    * @param z Z軸方向の拡大率
    */
-  static scaleM(r: Matrix, s: Matrix, sx: float, sy: float, sz: float);
+  static scaleM(
+    r: Matrix,
+    ro: number,
+    s: Matrix,
+    so: number,
+    sx: float,
+    sy: float,
+    sz: float
+  );
 
   /**
    * ビュー変換行列を計算して返します。
    * @param r 結果を格納する行列
+   * @param ro 結果を格納する行列のオフセット
    * @param eyeX 視点の位置のX座標
    * @param eyeY 視点の位置のY座標
    * @param eyeZ 視点の位置のZ座標
@@ -206,6 +281,7 @@ declare class MatrixU {
    */
   static setLookAtM(
     r: Matrix,
+    ro: number,
     eyeX: float,
     eyeY: float,
     eyeZ: float,

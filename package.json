@@ -3,13 +3,16 @@
   "scripts": {
     "dev": "nuxi dev",
     "build": "nuxi build",
-    "start": "node .output/server/index.mjs"
+    "start": "node .output/server/index.mjs",
+    "doc": "typedoc plugins\\webgllib\\@types\\webgllib.d.ts"
   },
   "devDependencies": {
     "bulma": "^0.9.3",
     "nuxt3": "latest",
     "pug": "^3.0.2",
-    "sass": "^1.49.9"
+    "sass": "^1.49.9",
+    "typedoc": "^0.22.13",
+    "typescript": "^4.6.3"
   },
   "dependencies": {}
 }

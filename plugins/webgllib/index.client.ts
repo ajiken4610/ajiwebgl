@@ -7,12 +7,12 @@ export default defineNuxtPlugin((nuxtApp) => {
     61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 117, 127, 131,
   ];
   let r: Matrix = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  MatrixU.multiplyMM(r, a, b);
+  MatrixU.multiplyMM(r, 0, a, 0, b, 0);
   console.log(r);
   let c: Matrix = [1, 1, 1, -1, 1, 1, -1, 1, 1, -1, 1, 1, -1, 1, 1, 1];
-  MatrixU.invertM(r, a);
+  MatrixU.invertM(r, 0, a, 0);
   console.log(r);
   let d: Matrix = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 5, 1];
-  MatrixU.invertM(r, d);
+  MatrixU.invertM(r, 0, d, 0);
   console.log(r);
 });
