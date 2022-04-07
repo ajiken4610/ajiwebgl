@@ -294,6 +294,11 @@ declare class MatrixU {
   );
 }
 
+/**
+ * このクラスは、ベクトルに関する静的なユーティリティを提供します。
+ *
+ * @class VecU
+ */
 declare class VecU {
   /**
    * Vec4の長さを計算します。
@@ -313,4 +318,17 @@ declare class VecU {
    * @return ベクトルの計算された長さ
    */
   static length3(s: Vec3): float;
+}
+
+/**
+ * このクラスは、VertexBufferObjectに関する静的なユーティリティを提供します。
+ */
+class VBOU {}
+/**
+ * この列挙は、VBOのオフセットが何を表すかを示します。
+ */
+enum Offset {
+  LOCATION,
+  UV,
+  NORMAL,
 }

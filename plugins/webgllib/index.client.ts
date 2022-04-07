@@ -1,4 +1,5 @@
 import { MatrixU } from "./MatrixU";
+import { Offset } from "./Offset";
 
 export default defineNuxtPlugin((nuxtApp) => {
   console.log("helloworld");
@@ -15,4 +16,5 @@ export default defineNuxtPlugin((nuxtApp) => {
   let d: Matrix = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 5, 1];
   MatrixU.invertM(r, 0, d, 0);
   console.log(r);
+  console.log(Offset.LOCATION);
 });
