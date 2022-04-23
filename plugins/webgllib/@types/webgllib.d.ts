@@ -348,3 +348,38 @@ declare class ObjFileUtils {
    */
   static parse(src: string): ObjFile;
 }
+
+/**
+ * このクラスは、可変長のFloat32Arrayを提供します。
+ * JavaのArrayListみたいなもんだと思ってください。
+ */
+declare class LengthVariableFloat32Array {
+  /**
+   * インスタンスを初期キャパシティから初期化します。
+   * @param initialCapacity 初期化時の容量。初期では16
+   */
+  public constructor(initialCapacity?: number);
+  /**
+   * 保持している配列。
+   *
+   * @type {Float32Array}
+   * @memberof LengthVariableFloat32Array
+   */
+  private arrays: Float32Array;
+  /**
+   * 配列の長さ。フィールドarrayの長さとは異なる。
+   *
+   * @type {number}
+   * @memberof LengthVariableFloat32Array
+   */
+  public length: number;
+  /**
+   * 配列の最後に要素を追加する。
+   * @param arg 追加する要素
+   */
+  public push(arg: number);
+  /**
+   * Float32Arrayに戻す。
+   */
+  public toArray(): Float32Array;
+}
