@@ -372,12 +372,12 @@ declare class LengthVariableFloat32Array {
    * @type {number}
    * @memberof LengthVariableFloat32Array
    */
-  public length: number;
+  public get length(): number;
   /**
    * 配列の最後に要素を追加する。
    * @param arg 追加する要素
    */
-  public push(arg: number);
+  public push(arg: number): void;
   /**
    * Float32Arrayに戻す。
    */
