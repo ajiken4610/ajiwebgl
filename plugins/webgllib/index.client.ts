@@ -1,4 +1,5 @@
 import { MatrixU } from "./MatrixU";
+import { LengthVariableFloat32Array } from "./LengthVariableFloat32Array";
 
 export default defineNuxtPlugin((nuxtApp) => {
   console.log("helloworld");
@@ -15,4 +16,12 @@ export default defineNuxtPlugin((nuxtApp) => {
   let d: Matrix = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 3, 5, 1];
   MatrixU.invertM(r, 0, d, 0);
   console.log(r);
+
+  console.log("====");
+  let array = new LengthVariableFloat32Array();
+  for (var i = 0; i < 1000; i++) {
+    array.push(Math.random());
+  }
+  console.log(array);
+  console.log(array.toArray());
 });
